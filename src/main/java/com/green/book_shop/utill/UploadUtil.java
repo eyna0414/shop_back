@@ -17,33 +17,41 @@ public class UploadUtil {
   private String uploadPath;
 
   //단일 파일 업로드
-  public void fileUpload(MultipartFile file){
+  public String fileUpload(MultipartFile file){
+
+    //파일을 첨부했을 때만 첨부 기능 실행
+    if(file != null){
+      //첨부기능 실행
+      //화면에서 선택한 첨부한 원본 파일명
+      String originFileName = file.getOriginalFilename();
+
+      //첨부할 파일명
+      String attachFileName = getAttachedFileName(originFileName);
+
+      //업로드 경로, 파일명을 연결 -> ex) D://devel/abc.jpg
+      File f = new File(uploadPath + attachFileName);
+
+      try {
+        //파일 첨부
+        //첨부한 파일(file)을 실제 업로드된 경로로 옮긴다.
+        file.transferTo(f);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+      return attachFileName;
+      }
+      return null;
+    }
 
     //파일을 첨부하지 않았으면...
-    if(file == null){
-      return;
-    }
+//    if(file == null){
+//      return;
+//    }
 
     //업로드될 경로
-    String uploadPath ="D:\\01-STUDY\\devel\\ShopProject\\backEnd\\book_shop\\src\\main\\resources\\upload\\";
+    //String uploadPath ="D:\\01-STUDY\\devel\\ShopProject\\backEnd\\book_shop\\src\\main\\resources\\upload\\";
 
-    //화면에서 선택한 첨부한 원본 파일명
-    String originFileName = file.getOriginalFilename();
 
-    //첨부할 파일명
-    String attachFileName = getAttachedFileName(originFileName);
-
-    //업로드 경로, 파일명을 연결 -> ex) D://devel/abc.jpg
-    File f = new File(uploadPath + attachFileName);
-
-    try {
-      //파일 첨부
-      //첨부한 파일(file)을 실제 업로드된 경로로 옮긴다.
-      file.transferTo(f);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
 
   //다중 파일 업로드
   public void multiFileUpload(MultipartFile[] files){

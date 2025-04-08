@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,4 +19,6 @@ public class BookDTO {
   private LocalDateTime regDate;
   private int bookStock;
   private int cateCode;
+
+  private List<ImgDTO> imgList;
 }

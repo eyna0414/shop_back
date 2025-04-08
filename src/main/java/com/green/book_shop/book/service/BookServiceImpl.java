@@ -42,6 +42,27 @@ public class BookServiceImpl implements BookService{
 
     return result;
   }
+
+  @Override
+  public void insertImgs(BookDTO bookDTO) {
+    bookMapper.insertImgs(bookDTO);
+  }
+
+  @Override
+  public int getNextBookCode() {
+    return bookMapper.getNextBookCode();
+  }
+
+  //상품 목록 조회
+  @Override
+  public List<BookDTO> selectItemList() {
+    return bookMapper.selectItemList();
+  }
+
+  @Override
+  public BookCategoryDTO getCategoryByCateCode(int cateCode) {
+    return bookMapper.getCategoryByCateCode(cateCode);
+  }
 }
 
 
